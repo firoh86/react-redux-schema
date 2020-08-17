@@ -1,24 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+// con hooks para acceder al state/store usas el hook useSelector
+import { useSelector } from 'react-redux';
+// carga de actions de redux(dipatchs)
+import actions from './redux/Actions';
 function App() {
+  // representamos el acceso al state de redux
+  const names = useSelector((state) => state);
+  // importamos los actions
+  const [addName] = actions('');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button className="button" onClick={() => addName('firoh')}>
+        Añade un nombre al store de redux
+      </button>
+      <ul>
+        {names.names.map((name, idx) => {
+          return <li key={idx}>{name}</li>;
+        })}
+      </ul>
     </div>
   );
 }
